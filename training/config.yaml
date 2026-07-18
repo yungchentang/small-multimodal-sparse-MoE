@@ -1,0 +1,70 @@
+seed: 42
+output_dir: outputs/real_required_runs
+data:
+  data_dir: data/real_subset
+  tokenizer_model: allenai/OLMoE-1B-7B-0924
+  block_size: 512
+  text_train_blocks: 14086
+  code_train_blocks: 1865
+  reasoning_train_blocks: 290
+  math_train_blocks: 611
+  education_train_blocks: 424
+  eval_blocks_per_task: 32
+  image_samples: 5250
+  speech_samples: 5250
+  image_eval_samples: 250
+  speech_eval_samples: 250
+model:
+  base_model: allenai/OLMoE-1B-7B-0924
+  dtype: bfloat16
+  teacher_top_k: 8
+  final_top_k: 2
+  num_experts: 64
+  hidden_size: 2048
+  train_router_gates: true
+  train_experts_default: false
+moe:
+  capacity_factor: 4.0
+  capacity_ablation_factor: 1.25
+  router_aux_loss_coef: 0.01
+  normalize_topk_prob: true
+  use_layerwise_gamma: true
+vision:
+  encoder: openai/clip-vit-base-patch32
+  image_size: 224
+  prefix_tokens: 50
+speech:
+  encoder: openai/whisper-base.en
+  sample_rate: 16000
+  max_seconds: 6.0
+  prefix_tokens: 50
+fusion:
+  type: projection_concat
+  prefix_label_mask: -100
+training:
+  precision: bf16
+  train_batch_size: 1
+  final_steps: 4000
+  no_aux_ablation_steps: 1000
+  capacity_ablation_steps: 1000
+  expert_ablation_steps: 0
+  learning_rate_projection: 0.0002
+  learning_rate_router: 0.00005
+  learning_rate_expert: 0.00005
+  weight_decay: 0.01
+  grad_clip: 1.0
+  save_every_steps: 1000
+  log_every_steps: 100
+evaluation:
+  text_eval_blocks: 160
+  retrieval_eval_samples: 250
+  eval_batch_size: 4
+  metrics:
+    - text_perplexity
+    - next_token_accuracy
+    - image_text_retrieval_recall_at_k
+    - speech_text_retrieval_recall_at_k
+    - gate_entropy
+    - expert_utilization
+    - inactive_experts
+    - capacity_overflow

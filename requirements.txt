@@ -1,0 +1,13 @@
+# Public, pip-installable environment. The exact Run:AI image build is recorded
+# separately in requirements-lock.txt because its NVIDIA PyTorch wheel is not a
+# standard PyPI artifact.
+torch==2.10.0
+numpy==2.1.0
+PyYAML==6.0.3
+transformers==5.13.0
+datasets==4.4.2
+accelerate==1.14.0
+peft==0.19.1
+Pillow==12.1.0
+soundfile==0.13.1
+librosa==0.11.0

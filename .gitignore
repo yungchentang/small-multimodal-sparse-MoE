@@ -1,0 +1,67 @@
+__pycache__/
+*.py[cod]
+.venv/
+.venv-*/
+.env
+.env.*
+!.env.example
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyright/
+*.egg-info/
+build/
+dist/
+
+# Test and profiling output
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+*.prof
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local caches and temporary files
+.cache/
+hf_cache/
+huggingface/
+tmp/
+temp/
+*.tmp
+*.swp
+
+# Datasets, checkpoints, and experiment output
+/outputs/
+/data/
+/artifacts/
+/checkpoints/
+/runs/
+/logs/
+*.log
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+pytorch_model*.bin
+wandb/
+mlruns/
+lightning_logs/
+
+# Local reports and papers are intentionally excluded from this code release
+/report/
+/paper*/
+*.pdf
+*.tex
+*.bib
+
+# Local worktrees and research-loop state
+.worktrees/
+.aris/
+.runai/

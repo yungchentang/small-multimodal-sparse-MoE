@@ -1,0 +1,62 @@
+seed: 42
+output_dir: outputs/top2_1week
+model:
+  backend: hf_olmoe
+  base_model: allenai/OLMoE-1B-7B-0924
+  dtype: bfloat16
+  max_seq_len: 1024
+  train_seq_len: 1024
+  eval_seq_len: 512
+  freeze_backbone: true
+  gradient_checkpointing: true
+moe:
+  teacher_top_k: 8
+  final_top_k: 2
+  routing_mode: calibrated_top2
+  normalize_top2_weights: true
+  use_layerwise_gamma: true
+  gamma_trainable: true
+  router_aux_loss_coef: 0.01
+  capacity_factor_train: 1.25
+  capacity_factor_eval: 1.0
+vision:
+  encoder: openai/clip-vit-base-patch32
+  freeze: true
+  image_size: 224
+  num_prefix_tokens: 8
+speech:
+  encoder: openai/whisper-base.en
+  freeze: true
+  sample_rate: 16000
+  max_seconds: 10
+  num_prefix_tokens: 16
+training:
+  precision: bf16
+  micro_batch_size: 1
+  gradient_accumulation_steps: 16
+  max_steps: 1500
+  learning_rate_projection: 0.0002
+  learning_rate_lora: 0.0001
+  learning_rate_router: 0.00005
+  learning_rate_gamma: 0.001
+  weight_decay: 0.01
+  warmup_steps: 100
+  save_every_steps: 300
+  eval_every_steps: 300
+  log_every_steps: 20
+loss:
+  load_balance_loss: 0.01
+  teacher_kl_loss: 0.1
+  distill_temperature: 2.0
+mixture:
+  c4: 0.25
+  codeparrot: 0.10
+  logiqa: 0.10
+  gsm8k: 0.10
+  sat: 0.05
+  coco: 0.25
+  librispeech: 0.15
+evaluation:
+  num_negative_captions: 4
+  num_negative_transcripts: 4
+  dump_router_metrics: true

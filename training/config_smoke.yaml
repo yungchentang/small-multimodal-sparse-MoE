@@ -1,0 +1,39 @@
+{
+  "seed": 42,
+  "output_dir": "outputs/smoke",
+  "model": {
+    "vocab_size": 256,
+    "max_seq_len": 96,
+    "train_seq_len": 48,
+    "eval_seq_len": 48,
+    "hidden_size": 64,
+    "intermediate_size": 128,
+    "num_layers": 2,
+    "num_heads": 4,
+    "dropout": 0.0
+  },
+  "moe": {
+    "num_experts": 8,
+    "teacher_top_k": 8,
+    "final_top_k": 2,
+    "normalize_top2_weights": true,
+    "gamma_trainable": true,
+    "router_aux_loss_coef": 0.01,
+    "capacity_factor_train": 1.25
+  },
+  "vision": {"input_dim": 32, "encoder_tokens": 8, "num_prefix_tokens": 4},
+  "speech": {"input_dim": 32, "encoder_tokens": 12, "num_prefix_tokens": 6},
+  "training": {
+    "precision": "fp32",
+    "micro_batch_size": 2,
+    "max_steps": 14,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.0,
+    "max_grad_norm": 1.0,
+    "log_every_steps": 1
+  },
+  "calibration": {"num_batches": 3, "batch_size": 2},
+  "distillation": {"max_steps": 2, "learning_rate": 0.0001},
+  "loss": {"distill_temperature": 2.0},
+  "evaluation": {"num_batches": 2, "batch_size": 2}
+}

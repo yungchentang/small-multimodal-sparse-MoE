@@ -1,0 +1,11 @@
+# The Run:AI container supplies its NVIDIA PyTorch build. Install this file
+# inside that image to avoid replacing torch with a PyPI wheel.
+numpy==2.1.0
+PyYAML==6.0.3
+transformers==5.13.0
+datasets==4.4.2
+accelerate==1.14.0
+peft==0.19.1
+Pillow==12.1.0
+soundfile==0.13.1
+librosa==0.11.0
